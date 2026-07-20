@@ -1922,6 +1922,93 @@
       .valley-consent-group.has-error .valley-consent-error {
         display: block;
       }
+
+      .valley-contact-form {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .valley-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .valley-form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .valley-form-field--full {
+        grid-column: 1 / -1;
+      }
+
+      .valley-form-field label {
+        font-size: 0.92rem;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      .valley-form-field input,
+      .valley-form-field textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid rgba(31, 29, 26, 0.18);
+        background: rgba(255, 255, 255, 0.96);
+        color: #1f1d1a;
+        font: inherit;
+        line-height: 1.5;
+      }
+
+      .valley-form-field textarea {
+        resize: vertical;
+        min-height: 140px;
+      }
+
+      .valley-form-field input:focus,
+      .valley-form-field textarea:focus {
+        outline: 2px solid rgba(131, 90, 59, 0.25);
+        outline-offset: 1px;
+        border-color: rgba(131, 90, 59, 0.45);
+      }
+
+      .valley-form-actions {
+        margin-top: 22px;
+      }
+
+      .valley-submit-button {
+        appearance: none;
+        border: 1px solid #1f1d1a;
+        background: #1f1d1a;
+        color: #fff;
+        padding: 14px 28px;
+        font: inherit;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+      }
+
+      .valley-submit-button:hover {
+        background: #35302a;
+        border-color: #35302a;
+      }
+
+      .valley-form-success {
+        display: none;
+        margin: 16px 0 0;
+        color: #285c37;
+        font-size: 0.94rem;
+      }
+
+      .valley-contact-form.is-submitted .valley-form-success {
+        display: block;
+      }
+
+      @media screen and (max-width: 767px) {
+        .valley-form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -1943,10 +2030,21 @@
             });
 
             consentGroup.classList.toggle("has-error", !allChecked);
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+              form.reportValidity();
+              return;
+            }
+
             if (!allChecked) {
               event.preventDefault();
               event.stopPropagation();
+              return;
             }
+
+            event.preventDefault();
+            form.classList.add("is-submitted");
           }, true);
 
           return true;
@@ -2053,7 +2151,34 @@
     <div class="form-wrapper"
       
     >
-      
+      <form class="valley-contact-form" novalidate>
+        <div class="valley-form-grid">
+          <div class="valley-form-field">
+            <label for="valley-first-name">First Name <span aria-hidden="true">*</span></label>
+            <input id="valley-first-name" name="first-name" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="valley-form-field">
+            <label for="valley-last-name">Last Name <span aria-hidden="true">*</span></label>
+            <input id="valley-last-name" name="last-name" type="text" autocomplete="family-name" required>
+          </div>
+          <div class="valley-form-field">
+            <label for="valley-email">Email <span aria-hidden="true">*</span></label>
+            <input id="valley-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="valley-form-field">
+            <label for="valley-phone">Phone <span aria-hidden="true">*</span></label>
+            <input id="valley-phone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+          <div class="valley-form-field valley-form-field--full">
+            <label for="valley-message">Message <span aria-hidden="true">*</span></label>
+            <textarea id="valley-message" name="message" rows="6" required></textarea>
+          </div>
+        </div>
+        <div class="valley-form-actions">
+          <button type="submit" class="valley-submit-button">Submit</button>
+        </div>
+        <p class="valley-form-success" aria-live="polite">Thank you! Your message has been captured in this local preview.</p>
+      </form>
     </div>
     <div class="valley-consent-group" data-valley-consent>
       <p class="valley-consent-title">Required consent acknowledgements</p>
@@ -2090,7 +2215,7 @@
   </div>
 </div></div></div><div class="fe-block fe-block-2333f5fbc5ebaab70356"><div class="sqs-block website-component-block sqs-block-website-component sqs-block-html html-block" data-block-css="[&quot;https://definitions.sqspcdn.com/website-component-definition/static-assets/website.components.html/8bad33ce-595f-488a-b7fa-84f334db5447_773/website.components.html.styles.css&quot;]" data-block-scripts="[&quot;https://definitions.sqspcdn.com/website-component-definition/static-assets/website.components.html/8bad33ce-595f-488a-b7fa-84f334db5447_773/website.components.html.visitor.js&quot;]" data-block-type="1337" data-definition-name="website.components.html" data-sqsp-block="text" data-website-component-id="2333f5fbc5ebaab70356" id="block-2333f5fbc5ebaab70356"><div class="sqs-block-content"><div class="sqs-text-block-container">
   
-  <div class="sqs-html-content" data-sqsp-text-block-content><p style="text-align:center;white-space:pre-wrap;" class="">Interested in working together? Fill out some info and we will be in touch shortly. We can't wait to hear from you!</p><p style="text-align:left;white-space:pre-wrap;font-size:0.9rem;line-height:1.7;max-width:900px;margin:24px auto 0;" class="">By clicking "Submit," I provide my electronic signature and give express written consent to Chris Washington Agency LLC and its representatives to contact me at the phone number provided above, including by text message and telephone call, for account notifications, customer care, and marketing purposes, using automated technology as permitted by law, even if my number is listed on a state, federal, or corporate Do Not Call registry.</p><p style="text-align:left;white-space:pre-wrap;font-size:0.9rem;line-height:1.7;max-width:900px;margin:16px auto 0;" class="">Consent is not a condition of purchasing any goods or services.<br>Message frequency may vary. Message and data rates may apply.<br>I may revoke my consent at any time by replying STOP to any text message. For assistance, reply HELP or contact the agency directly.</p><p style="text-align:left;white-space:pre-wrap;font-size:0.9rem;line-height:1.7;max-width:900px;margin:16px auto 0;" class="">View our <a href="privacy-policy.html">Privacy Policy</a> and <a href="sms-terms.html">SMS Terms &amp; Conditions</a>.</p></div>
+  <div class="sqs-html-content" data-sqsp-text-block-content><p style="text-align:center;white-space:pre-wrap;" class="">Interested in working together? Fill out some info and we will be in touch shortly. We can't wait to hear from you!</p><p style="text-align:left;white-space:pre-wrap;font-size:0.9rem;line-height:1.7;max-width:900px;margin:24px auto 0;" class="">By clicking "Send," I provide my electronic signature and give express written consent to The Valley District and its representatives to contact me at the phone number provided above, including by text message and telephone call, for account notifications, customer care, and marketing purposes, using automated technology as permitted by law, even if my number is listed on a state, federal, or corporate Do Not Call registry.</p><p style="text-align:left;white-space:pre-wrap;font-size:0.9rem;line-height:1.7;max-width:900px;margin:16px auto 0;" class="">Consent is not a condition of purchasing any goods or services.<br>Message frequency may vary. Message and data rates may apply.<br>I may revoke my consent at any time by replying STOP to any text message. For assistance, reply HELP or contact the agency directly.</p><p style="text-align:left;white-space:pre-wrap;font-size:0.9rem;line-height:1.7;max-width:900px;margin:16px auto 0;" class="">View our <a href="privacy-policy.html">Privacy Policy</a> and <a href="sms-terms.html">SMS Terms &amp; Conditions</a>.</p></div>
 
 
   
